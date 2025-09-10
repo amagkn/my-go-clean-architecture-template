@@ -1,4 +1,4 @@
-package v1
+package ver1
 
 import (
 	"github.com/amagkn/my-go-clean-architecture-template/internal/product/usecase"

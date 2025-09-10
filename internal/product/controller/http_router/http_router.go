@@ -1,7 +1,7 @@
 package http_router
 
 import (
-	ver1 "github.com/amagkn/my-go-clean-architecture-template/internal/product/controller/http_router/v1"
+	"github.com/amagkn/my-go-clean-architecture-template/internal/product/controller/http_router/ver1"
 	"github.com/amagkn/my-go-clean-architecture-template/internal/product/usecase"
 	"github.com/go-chi/chi/v5"
 )
