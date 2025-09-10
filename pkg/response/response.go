@@ -2,8 +2,9 @@ package response
 
 import (
 	"encoding/json"
-	"github.com/amagkn/my-go-clean-architecture-template/pkg/logger"
 	"net/http"
+
+	"github.com/amagkn/my-go-clean-architecture-template/pkg/logger"
 )
 
 func Success(w http.ResponseWriter, statusCode int, output any) {

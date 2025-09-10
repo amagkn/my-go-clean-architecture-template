@@ -2,10 +2,11 @@ package http_server
 
 import (
 	"context"
-	"github.com/amagkn/my-go-clean-architecture-template/pkg/logger"
 	"net"
 	"net/http"
 	"time"
+
+	"github.com/amagkn/my-go-clean-architecture-template/pkg/logger"
 )
 
 type Config struct {

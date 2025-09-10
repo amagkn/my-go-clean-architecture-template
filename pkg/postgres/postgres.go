@@ -3,6 +3,7 @@ package postgres
 import (
 	"context"
 	"fmt"
+
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/common_error"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/logger"
 	"github.com/jackc/pgx/v5/pgxpool"

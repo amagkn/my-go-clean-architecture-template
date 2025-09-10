@@ -3,10 +3,11 @@ package validation
 import (
 	"encoding/json"
 	"errors"
-	"github.com/amagkn/my-go-clean-architecture-template/pkg/common_error"
-	"github.com/go-playground/validator/v10"
 	"io"
 	"reflect"
+
+	"github.com/amagkn/my-go-clean-architecture-template/pkg/common_error"
+	"github.com/go-playground/validator/v10"
 )
 
 func ValidateStruct(input any) (map[string]string, error) {
