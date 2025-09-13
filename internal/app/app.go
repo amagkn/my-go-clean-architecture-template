@@ -7,7 +7,7 @@ import (
 	"syscall"
 
 	"github.com/amagkn/my-go-clean-architecture-template/config"
-	"github.com/amagkn/my-go-clean-architecture-template/pkg/common_error"
+	"github.com/amagkn/my-go-clean-architecture-template/pkg/base_errors"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/http_server"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/logger"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/postgres"
@@ -25,7 +25,7 @@ func Run(ctx context.Context, c config.Config) (err error) {
 
 	deps.Postgres, err = postgres.New(ctx, c.Postgres)
 	if err != nil {
-		return common_error.WithPath("postgres.New", err)
+		return base_errors.WithPath("postgres.New", err)
 	}
 	defer deps.Postgres.Close()
 

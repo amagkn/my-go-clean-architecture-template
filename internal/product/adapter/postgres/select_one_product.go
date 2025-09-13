@@ -5,7 +5,7 @@ import (
 	"errors"
 
 	"github.com/amagkn/my-go-clean-architecture-template/internal/product/entity"
-	"github.com/amagkn/my-go-clean-architecture-template/pkg/common_error"
+	"github.com/amagkn/my-go-clean-architecture-template/pkg/base_errors"
 	"github.com/doug-martin/goqu/v9"
 	"github.com/jackc/pgx/v5"
 )
@@ -21,16 +21,16 @@ func (p *Postgres) SelectOneProduct(ctx context.Context, id string) (entity.Prod
 
 	sql, _, err := ds.ToSQL()
 	if err != nil {
-		return product, common_error.WithPath("ds.ToSQL", err)
+		return product, base_errors.WithPath("ds.ToSQL", err)
 	}
 
 	err = p.pool.QueryRow(ctx, sql).Scan(&product.ID, &product.Name, &product.Description, &product.ImageUrl)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
-			return product, common_error.NotFound
+			return product, base_errors.NotFound
 		}
 
-		return product, common_error.WithPath("p.pool.QueryRow.Scan", err)
+		return product, base_errors.WithPath("p.pool.QueryRow.Scan", err)
 	}
 
 	return product, nil

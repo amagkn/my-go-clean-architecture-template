@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/amagkn/my-go-clean-architecture-template/pkg/common_error"
+	"github.com/amagkn/my-go-clean-architecture-template/pkg/base_errors"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/http_server"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/logger"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/postgres"
@@ -33,12 +33,12 @@ func New() (Config, error) {
 
 	err := godotenv.Load(".env")
 	if err != nil {
-		return config, common_error.WithPath("godotenv.Load", err)
+		return config, base_errors.WithPath("godotenv.Load", err)
 	}
 
 	err = envconfig.Process("", &config)
 	if err != nil {
-		return config, common_error.WithPath("envconfig.Process", err)
+		return config, base_errors.WithPath("envconfig.Process", err)
 	}
 
 	return config, nil

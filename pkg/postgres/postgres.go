@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/amagkn/my-go-clean-architecture-template/pkg/common_error"
+	"github.com/amagkn/my-go-clean-architecture-template/pkg/base_errors"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/logger"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
@@ -32,12 +32,12 @@ func New(ctx context.Context, c Config) (*Pool, error) {
 
 	cfg, err := pgxpool.ParseConfig(dsn)
 	if err != nil {
-		return nil, common_error.WithPath("pgxpool.ParseConfig", err)
+		return nil, base_errors.WithPath("pgxpool.ParseConfig", err)
 	}
 
 	pool, err := pgxpool.NewWithConfig(ctx, cfg)
 	if err != nil {
-		return nil, common_error.WithPath("pgxpool.NewWithConfig", err)
+		return nil, base_errors.WithPath("pgxpool.NewWithConfig", err)
 	}
 
 	return &Pool{Pool: pool}, nil

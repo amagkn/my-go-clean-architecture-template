@@ -5,7 +5,7 @@ import (
 
 	"github.com/amagkn/my-go-clean-architecture-template/internal/product/dto"
 	"github.com/amagkn/my-go-clean-architecture-template/internal/product/entity"
-	"github.com/amagkn/my-go-clean-architecture-template/pkg/common_error"
+	"github.com/amagkn/my-go-clean-architecture-template/pkg/base_errors"
 	"github.com/doug-martin/goqu/v9"
 	"github.com/google/uuid"
 )
@@ -26,13 +26,13 @@ func (p *Postgres) InsertOneProduct(ctx context.Context, input dto.CreateProduct
 
 	sql, args, err := ds.ToSQL()
 	if err != nil {
-		return product, common_error.WithPath("ds.ToSQL", err)
+		return product, base_errors.WithPath("ds.ToSQL", err)
 	}
 
 	row := p.pool.QueryRow(ctx, sql, args...)
 	err = row.Scan(&product.ID, &product.Name, &product.Description, &product.ImageUrl, &product.CategoryCode)
 	if err != nil {
-		return product, common_error.WithPath("row.Scan", err)
+		return product, base_errors.WithPath("row.Scan", err)
 	}
 
 	return product, nil

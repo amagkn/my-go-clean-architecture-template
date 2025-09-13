@@ -8,9 +8,8 @@ import (
 
 	"github.com/amagkn/my-go-clean-architecture-template/internal/product/dto"
 	"github.com/amagkn/my-go-clean-architecture-template/internal/product/entity"
-	"github.com/amagkn/my-go-clean-architecture-template/pkg/common_error"
+	"github.com/amagkn/my-go-clean-architecture-template/pkg/base_errors"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/logger"
-	"github.com/amagkn/my-go-clean-architecture-template/pkg/response"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/validation"
 )
 
@@ -22,9 +21,9 @@ func (h *Handlers) CreateProduct(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		logger.Error(err, "validation.ValidateStructWithDecodeJSONBody")
 		if invalidFields != nil {
-			response.Error(w, http.StatusBadRequest, response.ErrorPayload{Type: common_error.Validation, Details: invalidFields})
+			errorResponse(w, http.StatusBadRequest, errorPayload{Type: base_errors.Validation, Details: invalidFields})
 		} else {
-			response.Error(w, http.StatusBadRequest, response.ErrorPayload{Type: common_error.InvalidJSON})
+			errorResponse(w, http.StatusBadRequest, errorPayload{Type: base_errors.InvalidJSON})
 		}
 		return
 	}
@@ -33,15 +32,15 @@ func (h *Handlers) CreateProduct(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		logger.Error(err, "uc.CreateProduct")
 		if errors.Is(err, entity.ErrCategoryDoesNotExist) {
-			response.Error(w, http.StatusBadRequest, response.ErrorPayload{
+			errorResponse(w, http.StatusBadRequest, errorPayload{
 				Type:    entity.ErrCategoryDoesNotExist,
 				Details: fmt.Sprintf("Category with code %s does not exist", input.CategoryCode),
 			})
 			return
 		}
-		response.Error(w, http.StatusInternalServerError, response.ErrorPayload{Type: common_error.InternalServer})
+		errorResponse(w, http.StatusInternalServerError, errorPayload{Type: base_errors.InternalServer})
 		return
 	}
 
-	response.Success(w, http.StatusCreated, output)
+	successResponse(w, http.StatusCreated, output)
 }
