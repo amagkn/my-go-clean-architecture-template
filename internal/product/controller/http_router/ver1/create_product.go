@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/amagkn/my-go-clean-architecture-template/internal/product/dto"
-	"github.com/amagkn/my-go-clean-architecture-template/internal/product/error_type"
+	"github.com/amagkn/my-go-clean-architecture-template/internal/product/entity"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/common_error"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/logger"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/response"
@@ -32,9 +32,9 @@ func (h *Handlers) CreateProduct(w http.ResponseWriter, r *http.Request) {
 	output, err := h.uc.CreateProduct(ctx, input)
 	if err != nil {
 		logger.Error(err, "uc.CreateProduct")
-		if errors.Is(err, error_type.CategoryDoesNotExist) {
+		if errors.Is(err, entity.ErrCategoryDoesNotExist) {
 			response.Error(w, http.StatusBadRequest, response.ErrorPayload{
-				Type:    error_type.CategoryDoesNotExist,
+				Type:    entity.ErrCategoryDoesNotExist,
 				Details: fmt.Sprintf("Category with code %s does not exist", input.CategoryCode),
 			})
 			return

@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/amagkn/my-go-clean-architecture-template/internal/product/dto"
-	"github.com/amagkn/my-go-clean-architecture-template/internal/product/error_type"
+	"github.com/amagkn/my-go-clean-architecture-template/internal/product/entity"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/common_error"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/logger"
 	"github.com/amagkn/my-go-clean-architecture-template/pkg/response"
@@ -33,14 +33,14 @@ func (h *Handlers) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		logger.Error(err, "uc.UpdateProduct")
 		switch {
-		case errors.Is(err, error_type.CategoryDoesNotExist):
+		case errors.Is(err, entity.ErrCategoryDoesNotExist):
 			response.Error(w, http.StatusBadRequest, response.ErrorPayload{
-				Type:    error_type.CategoryDoesNotExist,
+				Type:    entity.ErrCategoryDoesNotExist,
 				Details: fmt.Sprintf("Category with code %s does not exist", *input.CategoryCode),
 			})
-		case errors.Is(err, error_type.ProductDoesNotExist):
+		case errors.Is(err, entity.ErrProductDoesNotExist):
 			response.Error(w, http.StatusBadRequest, response.ErrorPayload{
-				Type:    error_type.ProductDoesNotExist,
+				Type:    entity.ErrProductDoesNotExist,
 				Details: "Product with this ID does not exist",
 			})
 		default:
