@@ -6,7 +6,6 @@ import (
 	"io"
 	"reflect"
 
-	"github.com/amagkn/my-go-clean-architecture-template/pkg/common_error"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -20,7 +19,7 @@ func ValidateStruct(input any) (map[string]string, error) {
 		var validateErrs validator.ValidationErrors
 
 		if !errors.As(err, &validateErrs) {
-			return nil, common_error.WithPath("validate.Struct", err)
+			return nil, errWithPath("validate.Struct", err)
 		}
 
 		for _, e := range validateErrs {
@@ -47,7 +46,7 @@ func ValidateStructWithDecodeJSONBody(body io.ReadCloser, input any) (map[string
 		var unmarshalTypeErr *json.UnmarshalTypeError
 
 		if !errors.As(err, &unmarshalTypeErr) {
-			return nil, common_error.WithPath("json.NewDecoder", err)
+			return nil, errWithPath("json.NewDecoder", err)
 		}
 
 		fields[unmarshalTypeErr.Field] = messages.WrongType(unmarshalTypeErr.Type, unmarshalTypeErr.Value)
@@ -57,7 +56,7 @@ func ValidateStructWithDecodeJSONBody(body io.ReadCloser, input any) (map[string
 
 	fields, err = ValidateStruct(input)
 	if err != nil {
-		return fields, common_error.WithPath("validation.ValidateStruct", err)
+		return fields, errWithPath("validation.ValidateStruct", err)
 	}
 
 	return nil, nil
