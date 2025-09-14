@@ -1,5 +1,8 @@
 mod:
 	go mod tidy
 
-run: mod
+dev: mod
 	go run ./cmd/app
+
+start:
+	go build -o ./bin/app ./cmd/app && ./bin/app
