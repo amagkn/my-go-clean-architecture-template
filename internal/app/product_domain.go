@@ -9,5 +9,5 @@ import (
 func ProductDomain(d Dependences) {
 	productUseCase := usecase.New(postgres.New(d.Postgres.Pool))
 
-	http_router.ProductRouter(d.RouterHTTP, productUseCase)
+	http_router.ProductRoutes(d.RouterHTTP, productUseCase)
 }

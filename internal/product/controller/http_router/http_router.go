@@ -6,7 +6,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func ProductRouter(r *chi.Mux, uc *usecase.UseCase) {
+func ProductRoutes(r *chi.Mux, uc *usecase.UseCase) {
 	v1 := ver1.New(uc)
 
 	r.Route("/api/v1/product", func(r chi.Router) {
