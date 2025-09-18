@@ -1,12 +1,14 @@
 package postgres
 
-import "github.com/jackc/pgx/v5/pgxpool"
+import (
+	"github.com/amagkn/my-go-clean-architecture-template/pkg/postgres"
+)
 
 type Postgres struct {
-	pool *pgxpool.Pool
+	pool *postgres.Pool
 }
 
-func New(p *pgxpool.Pool) *Postgres {
+func New(p *postgres.Pool) *Postgres {
 	return &Postgres{
 		pool: p,
 	}
