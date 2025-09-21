@@ -6,7 +6,7 @@ import (
 	"github.com/amagkn/my-go-clean-architecture-template/internal/product/usecase"
 )
 
-func ProductDomain(d Dependences) {
+func ProductDomain(d Dependencies) {
 	productUseCase := usecase.New(postgres.New(d.Postgres))
 
 	http_router.ProductRoutes(d.RouterHTTP, productUseCase)

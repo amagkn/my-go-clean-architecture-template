@@ -15,13 +15,13 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-type Dependences struct {
+type Dependencies struct {
 	RouterHTTP *chi.Mux
 	Postgres   *postgres.Pool
 }
 
 func Run(ctx context.Context, c config.Config) (err error) {
-	var deps Dependences
+	var deps Dependencies
 
 	deps.Postgres, err = postgres.New(ctx, c.Postgres)
 	if err != nil {
