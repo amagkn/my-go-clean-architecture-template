@@ -14,13 +14,6 @@ type App struct {
 	Version string `envconfig:"APP_VERSION" required:"true"`
 }
 
-/*
-Config holds environment variable data.
-Initialization steps:
-
- 1. Use godotenv to read .env file
- 2. Use envconfig to map variables to the struct
-*/
 type Config struct {
 	App      App
 	Logger   logger.Config
